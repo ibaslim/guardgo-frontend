@@ -32,8 +32,12 @@ export class Dashboard implements OnInit {
     // Load theme preference from localStorage
     const savedTheme = localStorage.getItem('theme');
     this.darkMode = savedTheme === 'dark';
+    
+    // Apply the correct theme
     if (this.darkMode) {
       document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
   }
 
