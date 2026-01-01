@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
 })
 export class Dashboard implements OnInit {
   userEmail = '';
-  sidebarOpen = false;
 
   stats = [
     { name: 'Total Users', value: '2,651', change: '+12%', changeType: 'increase' },
@@ -40,9 +39,5 @@ export class Dashboard implements OnInit {
 
   logout() {
     this.authService.logout();
-  }
-
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
   }
 }

@@ -20,7 +20,7 @@ export class Onboarding {
   onSubmit() {
     this.errorMessage = '';
 
-    if (!this.email || !this.password) {
+    if (!this.email || !this.password || !this.confirmPassword) {
       this.errorMessage = 'Please fill in all fields';
       return;
     }
@@ -30,8 +30,19 @@ export class Onboarding {
       return;
     }
 
-    if (this.password.length < 6) {
-      this.errorMessage = 'Password must be at least 6 characters';
+    // Stronger password validation
+    if (this.password.length < 8) {
+      this.errorMessage = 'Password must be at least 8 characters';
+      return;
+    }
+
+    if (!/[A-Z]/.test(this.password)) {
+      this.errorMessage = 'Password must contain at least one uppercase letter';
+      return;
+    }
+
+    if (!/[0-9]/.test(this.password)) {
+      this.errorMessage = 'Password must contain at least one number';
       return;
     }
 

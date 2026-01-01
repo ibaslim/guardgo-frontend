@@ -13,9 +13,18 @@ export class Auth {
 
   constructor(private router: Router) {
     // Check if user is already logged in (from localStorage)
-    const savedUser = localStorage.getItem('currentUser');
-    if (savedUser) {
-      this.currentUser = JSON.parse(savedUser);
+    try {
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser) {
+        const parsed = JSON.parse(savedUser);
+        // Validate the structure of the parsed data
+        if (parsed && typeof parsed.email === 'string') {
+          this.currentUser = parsed;
+        }
+      }
+    } catch (error) {
+      // If parsing fails, clear invalid data
+      localStorage.removeItem('currentUser');
     }
   }
 
