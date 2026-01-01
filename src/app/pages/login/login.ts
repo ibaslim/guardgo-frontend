@@ -13,7 +13,6 @@ export class Login {
   email = '';
   password = '';
   errorMessage = '';
-  rememberMe = false;
 
   constructor(private authService: Auth, private router: Router) {}
 
