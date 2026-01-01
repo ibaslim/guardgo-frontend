@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 export class Dashboard implements OnInit {
   userEmail = '';
+  sidebarCollapsed = false;
+  darkMode = false;
 
   stats = [
     { name: 'Total Users', value: '2,651', change: '+12%', changeType: 'increase' },
@@ -26,7 +28,14 @@ export class Dashboard implements OnInit {
     { action: 'Profile updated', user: 'emma@example.com', time: '2 hours ago' },
   ];
 
-  constructor(private authService: Auth, private router: Router) {}
+  constructor(private authService: Auth, private router: Router) {
+    // Load theme preference from localStorage
+    const savedTheme = localStorage.getItem('theme');
+    this.darkMode = savedTheme === 'dark';
+    if (this.darkMode) {
+      document.documentElement.classList.add('dark');
+    }
+  }
 
   ngOnInit() {
     const user = this.authService.getCurrentUser();
@@ -35,6 +44,21 @@ export class Dashboard implements OnInit {
       return;
     }
     this.userEmail = user.email;
+  }
+
+  toggleSidebar() {
+    this.sidebarCollapsed = !this.sidebarCollapsed;
+  }
+
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+    if (this.darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   }
 
   logout() {
