@@ -14,7 +14,7 @@ export interface MultiSelectOption {
   template: `
     <div class="w-full">
       @if (label) {
-        <label class="block text-sm font-medium text-gray-700 mb-1">
+        <label class="block text-sm font-medium text-gray-700 mb-1.5">
           {{ label }}
           @if (required) {
             <span class="text-red-500">*</span>
@@ -30,7 +30,7 @@ export interface MultiSelectOption {
               [checked]="isSelected(option.value)"
               [disabled]="disabled"
               (change)="onOptionChange(option.value, $event)"
-              class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 transition duration-150"
+              class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 transition-all duration-200"
               [class.cursor-not-allowed]="disabled"
               [class.cursor-pointer]="!disabled"
             />
@@ -39,13 +39,13 @@ export interface MultiSelectOption {
         }
       </div>
       @if (selectedCount > 0) {
-        <p class="mt-1 text-xs text-gray-600">{{ selectedCount }} selected</p>
+        <p class="mt-1.5 text-xs text-blue-600 font-medium">{{ selectedCount }} selected</p>
       }
       @if (hint) {
-        <p class="mt-1 text-xs text-gray-500">{{ hint }}</p>
+        <p class="mt-1.5 text-xs text-gray-500">{{ hint }}</p>
       }
       @if (error) {
-        <p class="mt-1 text-xs text-red-600">{{ error }}</p>
+        <p class="mt-1.5 text-xs text-red-600">{{ error }}</p>
       }
     </div>
   `,
@@ -75,27 +75,27 @@ export class BaseMultiSelect implements ControlValueAccessor {
   }
 
   get containerClasses(): string {
-    const baseClasses = 'border rounded-md p-3 space-y-2 max-h-48 overflow-y-auto';
+    const baseClasses = 'border rounded-lg p-3 space-y-2.5 max-h-60 overflow-y-auto shadow-sm transition-all duration-200';
     const stateClasses = this.disabled
-      ? 'bg-gray-100 border-gray-200'
+      ? 'bg-gray-50 border-gray-200'
       : this.error
-      ? 'border-red-300 bg-white'
-      : 'border-gray-300 bg-white';
+      ? 'border-red-300 bg-white hover:border-red-400'
+      : 'border-gray-300 bg-white hover:border-gray-400';
     
     return `${baseClasses} ${stateClasses}`;
   }
 
   get optionClasses(): string {
-    const baseClasses = 'flex items-center space-x-2 p-2 rounded hover:bg-gray-50 transition duration-150';
+    const baseClasses = 'flex items-center space-x-3 p-2.5 rounded-md transition-all duration-200';
     return this.disabled
       ? `${baseClasses} cursor-not-allowed opacity-60`
-      : `${baseClasses} cursor-pointer`;
+      : `${baseClasses} cursor-pointer hover:bg-blue-50`;
   }
 
   get optionLabelClasses(): string {
     return this.disabled
       ? 'text-sm text-gray-400'
-      : 'text-sm text-gray-700';
+      : 'text-sm text-gray-700 font-medium';
   }
 
   isSelected(value: string): boolean {
