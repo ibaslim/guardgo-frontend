@@ -1,0 +1,224 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-extrabold text-gray-900">Form Components Demo</h1>
+          <p class="mt-2 text-sm text-gray-600">
+            Demonstration of all custom form components with Tailwind CSS styling
+          </p>
+        </div>
+        <a
+          routerLink="/dashboard"
+          class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150"
+        >
+          ← Back to Dashboard
+        </a>
+      </div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="bg-white shadow-xl rounded-lg p-8">
+      <form (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Basic Input Fields -->
+        <div class="border-b border-gray-200 pb-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Basic Information</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <app-base-input
+              label="Full Name"
+              placeholder="Enter your full name"
+              [required]="true"
+              [(ngModel)]="fullName"
+              name="fullName"
+              hint="As it appears on official documents"
+            />
+
+            <app-base-input
+              label="Email Address"
+              type="email"
+              placeholder="you@example.com"
+              [required]="true"
+              [(ngModel)]="email"
+              name="email"
+              hint="We'll never share your email"
+            />
+
+            <app-base-input
+              label="Password"
+              type="password"
+              placeholder="Enter a strong password"
+              [required]="true"
+              [(ngModel)]="password"
+              name="password"
+              hint="At least 8 characters"
+            />
+
+            <app-base-input
+              label="Readonly Field"
+              [readonly]="true"
+              [(ngModel)]="readonlyField"
+              name="readonlyField"
+              hint="This field cannot be edited"
+            />
+          </div>
+        </div>
+
+        <!-- Phone Input -->
+        <div class="border-b border-gray-200 pb-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Contact Information</h2>
+          <app-base-phone-input
+            label="Phone Number"
+            placeholder="Enter phone number"
+            [required]="true"
+            [(ngModel)]="phone"
+            name="phone"
+            hint="Select your country code and enter your phone number"
+          />
+        </div>
+
+        <!-- Dropdown -->
+        <div class="border-b border-gray-200 pb-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Location</h2>
+          <app-base-dropdown
+            label="Country"
+            [options]="countryOptions"
+            placeholder="Select your country"
+            [required]="true"
+            [(ngModel)]="country"
+            name="country"
+            hint="Choose the country you currently reside in"
+          />
+        </div>
+
+        <!-- Radio Buttons -->
+        <div class="border-b border-gray-200 pb-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Personal Details</h2>
+          <app-base-radio
+            label="Gender"
+            [options]="genderOptions"
+            orientation="horizontal"
+            [(ngModel)]="gender"
+            name="gender"
+            hint="Select your gender identity"
+          />
+        </div>
+
+        <!-- Multi-Select -->
+        <div class="border-b border-gray-200 pb-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Interests</h2>
+          <app-base-multi-select
+            label="Select Your Interests"
+            [options]="interestOptions"
+            [(ngModel)]="interests"
+            name="interests"
+            hint="Choose one or more interests"
+          />
+        </div>
+
+        <!-- Textarea -->
+        <div class="border-b border-gray-200 pb-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">About You</h2>
+          <app-base-textarea
+            label="Bio"
+            placeholder="Tell us about yourself..."
+            [rows]="5"
+            [maxLength]="500"
+            [(ngModel)]="bio"
+            name="bio"
+            hint="Share a brief description about yourself"
+          />
+        </div>
+
+        <!-- Checkboxes -->
+        <div class="border-b border-gray-200 pb-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Agreements</h2>
+          <div class="space-y-3">
+            <app-base-checkbox
+              label="I agree to the terms and conditions"
+              [required]="true"
+              [(ngModel)]="agreeToTerms"
+              name="agreeToTerms"
+              hint="You must accept the terms to continue"
+            />
+
+            <app-base-checkbox
+              label="Subscribe to newsletter"
+              [(ngModel)]="subscribeNewsletter"
+              name="subscribeNewsletter"
+              hint="Receive updates and news via email"
+            />
+          </div>
+        </div>
+
+        <!-- Success/Error Messages -->
+        @if (successMessage) {
+          <div class="rounded-md bg-green-50 p-4">
+            <div class="flex">
+              <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <div class="ml-3">
+                <h3 class="text-sm font-medium text-green-800">{{ successMessage }}</h3>
+              </div>
+            </div>
+          </div>
+        }
+
+        @if (errorMessage) {
+          <div class="rounded-md bg-red-50 p-4">
+            <div class="flex">
+              <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+              </svg>
+              <div class="ml-3">
+                <h3 class="text-sm font-medium text-red-800">{{ errorMessage }}</h3>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Form Actions -->
+        <div class="flex gap-4 pt-4">
+          <button
+            type="submit"
+            [disabled]="isSubmitting"
+            class="flex-1 flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            @if (isSubmitting) {
+              <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            } @else {
+              Submit Form
+            }
+          </button>
+
+          <button
+            type="button"
+            (click)="resetForm()"
+            [disabled]="isSubmitting"
+            class="flex-1 py-3 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Reset Form
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Component List -->
+    <div class="mt-8 bg-white shadow rounded-lg p-6">
+      <h3 class="text-lg font-semibold text-gray-900 mb-3">Available Components</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="text-sm text-gray-700 bg-blue-50 px-3 py-2 rounded">✓ BaseInput</div>
+        <div class="text-sm text-gray-700 bg-blue-50 px-3 py-2 rounded">✓ BaseCheckbox</div>
+        <div class="text-sm text-gray-700 bg-blue-50 px-3 py-2 rounded">✓ BaseRadio</div>
+        <div class="text-sm text-gray-700 bg-blue-50 px-3 py-2 rounded">✓ BaseDropdown</div>
+        <div class="text-sm text-gray-700 bg-blue-50 px-3 py-2 rounded">✓ BaseMultiSelect</div>
+        <div class="text-sm text-gray-700 bg-blue-50 px-3 py-2 rounded">✓ BasePhoneInput</div>
+        <div class="text-sm text-gray-700 bg-blue-50 px-3 py-2 rounded">✓ BaseTextArea</div>
+      </div>
+    </div>
+  </div>
+</div>
