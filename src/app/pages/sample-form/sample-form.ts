@@ -75,18 +75,35 @@ export class SampleForm {
     { value: 'jp', label: 'Japan' },
     { value: 'cn', label: 'China' },
     { value: 'in', label: 'India' },
-    { value: 'br', label: 'Brazil' }
+    { value: 'br', label: 'Brazil' },
+    { value: 'mx', label: 'Mexico' },
+    { value: 'es', label: 'Spain' },
+    { value: 'it', label: 'Italy' },
+    { value: 'nl', label: 'Netherlands' },
+    { value: 'se', label: 'Sweden' }
   ];
 
   interestOptions: MultiSelectOption[] = [
-    { value: 'sports', label: 'Sports' },
-    { value: 'music', label: 'Music' },
-    { value: 'travel', label: 'Travel' },
-    { value: 'technology', label: 'Technology' },
-    { value: 'reading', label: 'Reading' },
-    { value: 'cooking', label: 'Cooking' },
-    { value: 'photography', label: 'Photography' },
-    { value: 'gaming', label: 'Gaming' }
+    { value: 'sports', label: 'Sports & Fitness' },
+    { value: 'music', label: 'Music & Concerts' },
+    { value: 'travel', label: 'Travel & Adventure' },
+    { value: 'technology', label: 'Technology & Gadgets' },
+    { value: 'reading', label: 'Reading & Literature' },
+    { value: 'cooking', label: 'Cooking & Culinary Arts' },
+    { value: 'photography', label: 'Photography & Visual Arts' },
+    { value: 'gaming', label: 'Gaming & Esports' },
+    { value: 'movies', label: 'Movies & Cinema' },
+    { value: 'art', label: 'Art & Painting' },
+    { value: 'dance', label: 'Dance & Performance' },
+    { value: 'yoga', label: 'Yoga & Meditation' },
+    { value: 'hiking', label: 'Hiking & Outdoor Activities' },
+    { value: 'cycling', label: 'Cycling & Biking' },
+    { value: 'swimming', label: 'Swimming & Water Sports' },
+    { value: 'gardening', label: 'Gardening & Plants' },
+    { value: 'fashion', label: 'Fashion & Style' },
+    { value: 'writing', label: 'Writing & Blogging' },
+    { value: 'volunteering', label: 'Volunteering & Community Service' },
+    { value: 'science', label: 'Science & Research' }
   ];
 
   onSubmit(): void {
