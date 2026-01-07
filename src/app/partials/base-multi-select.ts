@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, OnInit, OnChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -159,7 +159,7 @@ export interface MultiSelectOption {
     }
   ]
 })
-export class BaseMultiSelect implements ControlValueAccessor {
+export class BaseMultiSelect implements ControlValueAccessor, OnInit, OnChanges {
   @Input() id = `multiselect-${Math.random().toString(36).substring(2, 9)}`;
   @Input() label = '';
   @Input() options: MultiSelectOption[] = [];
