@@ -49,9 +49,9 @@ export interface MultiSelectOption {
               (input)="onSearchChange()"
               placeholder="Search options..."
               [disabled]="disabled"
-              class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 transition-all duration-200"
+              class="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
               [class.cursor-not-allowed]="disabled"
-              [class.cursor-pointer]="!disabled"
+              [class.bg-gray-50]="disabled"
             />
             @if (searchTerm) {
               <button
