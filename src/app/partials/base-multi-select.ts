@@ -82,7 +82,7 @@ export interface MultiSelectOption {
         </div>
 
         <!-- Options list -->
-        <div class="p-2 max-h-64 overflow-y-auto" role="listbox" [attr.aria-labelledby]="id">
+        <div class="p-2 max-h-64 overflow-y-auto" role="listbox">
           @if (filteredOptions.length > 0) {
             @for (option of filteredOptions; track option.value) {
               <label 
@@ -96,7 +96,6 @@ export interface MultiSelectOption {
                   [checked]="isSelected(option.value)"
                   [disabled]="disabled"
                   (change)="onOptionChange(option.value, $event)"
-                  [attr.aria-label]="option.label"
                   class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150"
                   [class.cursor-not-allowed]="disabled"
                   [class.cursor-pointer]="!disabled"
@@ -179,7 +178,9 @@ export class BaseMultiSelect implements ControlValueAccessor, OnInit, OnChanges 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.filterOptions();
+    if (changes['options']) {
+      this.filterOptions();
+    }
   }
 
   get selectedCount(): number {
