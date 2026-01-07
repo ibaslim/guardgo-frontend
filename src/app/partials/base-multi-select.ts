@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, forwardRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -178,7 +178,7 @@ export class BaseMultiSelect implements ControlValueAccessor, OnInit, OnChanges 
     this.filteredOptions = [...this.options];
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.filterOptions();
   }
 
