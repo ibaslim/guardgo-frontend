@@ -14,10 +14,7 @@ export interface MultiSelectOption {
   template: `
     <div class="w-full">
       @if (label) {
-        <label 
-          [for]="id" 
-          class="block text-sm font-medium text-gray-700 mb-2"
-        >
+        <label class="block text-sm font-medium text-gray-700 mb-1.5">
           {{ label }}
           @if (required) {
             <span class="text-red-500">*</span>
@@ -52,8 +49,10 @@ export interface MultiSelectOption {
               (input)="onSearchChange()"
               placeholder="Search options..."
               [disabled]="disabled"
-              [attr.aria-label]="'Search ' + label"
-              class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed"
+              (change)="onOptionChange(option.value, $event)"
+              class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 transition-all duration-200"
+              [class.cursor-not-allowed]="disabled"
+              [class.cursor-pointer]="!disabled"
             />
             @if (searchTerm) {
               <button
@@ -130,23 +129,13 @@ export interface MultiSelectOption {
 
       <!-- Selected count and messages -->
       @if (selectedCount > 0) {
-        <p class="mt-2 text-xs font-medium text-blue-600 flex items-center">
-          <svg class="h-3.5 w-3.5 mr-1" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-          </svg>
-          {{ selectedCount }} option{{ selectedCount === 1 ? '' : 's' }} selected
-        </p>
+        <p class="mt-1.5 text-xs text-blue-600 font-medium">{{ selectedCount }} selected</p>
       }
       @if (hint) {
         <p class="mt-1.5 text-xs text-gray-500">{{ hint }}</p>
       }
       @if (error) {
-        <p class="mt-1.5 text-xs text-red-600 flex items-center">
-          <svg class="h-3.5 w-3.5 mr-1" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-          </svg>
-          {{ error }}
-        </p>
+        <p class="mt-1.5 text-xs text-red-600">{{ error }}</p>
       }
     </div>
   `,
@@ -188,27 +177,27 @@ export class BaseMultiSelect implements ControlValueAccessor, OnInit, OnChanges 
   }
 
   get containerClasses(): string {
-    const baseClasses = 'border rounded-lg bg-white shadow-sm';
+    const baseClasses = 'border rounded-lg p-3 space-y-2.5 max-h-60 overflow-y-auto shadow-sm transition-all duration-200';
     const stateClasses = this.disabled
-      ? 'bg-gray-50 border-gray-200 opacity-75'
+      ? 'bg-gray-50 border-gray-200'
       : this.error
-      ? 'border-red-300 ring-2 ring-red-100'
-      : 'border-gray-300 hover:border-gray-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100';
+      ? 'border-red-300 bg-white hover:border-red-400'
+      : 'border-gray-300 bg-white hover:border-gray-400';
     
     return `${baseClasses} ${stateClasses} transition-all duration-200`;
   }
 
   get optionClasses(): string {
-    const baseClasses = 'flex items-center space-x-3 px-3 py-2.5 rounded-md transition-all duration-150';
+    const baseClasses = 'flex items-center space-x-3 p-2.5 rounded-md transition-all duration-200';
     return this.disabled
       ? `${baseClasses} cursor-not-allowed opacity-60`
-      : `${baseClasses} cursor-pointer hover:bg-blue-50 hover:shadow-sm`;
+      : `${baseClasses} cursor-pointer hover:bg-blue-50`;
   }
 
   get optionLabelClasses(): string {
     return this.disabled
-      ? 'text-sm text-gray-400 select-none'
-      : 'text-sm text-gray-700 select-none font-medium';
+      ? 'text-sm text-gray-400'
+      : 'text-sm text-gray-700 font-medium';
   }
 
   isSelected(value: string): boolean {
