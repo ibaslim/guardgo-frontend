@@ -49,7 +49,6 @@ export interface MultiSelectOption {
               (input)="onSearchChange()"
               placeholder="Search options..."
               [disabled]="disabled"
-              (change)="onOptionChange(option.value, $event)"
               class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 transition-all duration-200"
               [class.cursor-not-allowed]="disabled"
               [class.cursor-pointer]="!disabled"
